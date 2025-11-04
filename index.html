@@ -23,5 +23,23 @@
       target: "#hubspot-form"
     });
   </script>
+
+
+
+  <script>
+    function postHeight() {
+      const height = document.body.scrollHeight;
+      parent.postMessage({ type: 'resize', height }, '*');
+    }
+    
+    // Run on load
+    window.addEventListener('load', postHeight);
+    
+    // Run again if HubSpot form expands (async load)
+    const observer = new MutationObserver(postHeight);
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+
+  
 </body>
 </html>
